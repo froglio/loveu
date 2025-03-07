@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Love U Luisa</title>
+    <style>
+      body {
+        background-color: #370000;
+        color: white;
+        font-family: Arial, sans-serif;
+        text-align: center;
+        padding: 20px;
+      }
+      .divider {
+        border-top: 1px solid white;
+        margin: 20px auto;
+        max-width: 400px;
+      }
+      img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 10px;
+      }
+      a {
+        color: white;
+      }
+      .carousel {
+        position: relative;
+        max-width: 100%;
+        margin: auto;
+      }
+      .carousel img {
+        display: none;
+        border-radius: 10px;
+      }
+      .carousel img.active {
+        display: block;
+        margin: 0 auto; /* Centraliza a imagem */
+      }
+      .second-div > p {
+        margin: 8px 0;
+      }
+      @media (min-width: 768px) {
+        .carousel img {
+          max-width: 300px;
+          height: auto;
+        }
+      }
+      .loader {
+        border: 8px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 8px solid #3498db;
+        width: 60px;
+        height: 60px;
+        animation: spin 2s linear infinite;
+        margin: 20px auto;
+      }
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+      .hidden {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="first-div">
+      <div class="carousel">
+        <img src="./foto.jpeg" alt="Foto 1" class="active" />
+        <img src="./foto-2.jpeg" alt="Foto 2" />
+        <img src="./foto-3.jpeg" alt="Foto 3" />
+        <img src="./foto-4.jpeg" alt="Foto 4" />
+        <img src="./foto-5.jpeg" alt="Foto 5" />
+        <img src="./foto-6.jpg" alt="Foto 6" />
+        <img src="./foto-7.jpg" alt="Foto 7" />
+        <img src="./foto-8.jpeg" alt="Foto 8" />
+        <img src="./foto-9.jpeg" alt="Foto 9" />
+        <img src="./foto-10.jpeg" alt="Foto 10" />
+        <img src="./foto-11.jpg" alt="Foto 11" />
+        <img src="./foto-12.jpeg" alt="Foto 12" />
+      </div>
+      <p>Juntos há</p>
+    </div>
+    <div class="second-div">
+      <p class="years-passed">...</p>
+      <p class="time-passed">...</p>
+    </div>
+    <div class="divider"></div>
+    <div class="third-div">
+      <p>
+        contando os dias e minutos pra morar na nossa
+        <a href="https://pin.it/5VxBnLy19" target="_blank">casinha da praia</a>
+      </p>
+      <p>te amo pra sempre vida ❤️</p>
+      <div id="loader" class="loader"></div>
+      <iframe
+        id="spotify-player"
+        class="hidden"
+        src="https://open.spotify.com/embed/track/2aGw77pZqli064JiPuXYRi?si=48f35ded1d1f4208&t=53"
+        width="300"
+        height="80"
+        frameborder="0"
+        allowtransparency="true"
+        allow="encrypted-media"
+        onload="hideLoader()"
+      ></iframe>
+    </div>
+    <script>
+      function hideLoader() {
+        document.getElementById("loader").classList.add("hidden");
+        document.getElementById("spotify-player").classList.remove("hidden");
+      }
+
+      function updateTime() {
+        const startDate = new Date("2023-03-16T00:00:00");
+        const now = new Date();
+
+        let years = now.getFullYear() - startDate.getFullYear();
+        let months = now.getMonth() - startDate.getMonth();
+        let days = now.getDate() - startDate.getDate();
+
+        if (days < 0) {
+          months--;
+          days += new Date(now.getFullYear(), now.getMonth(), 0).getDate();
+        }
+
+        if (months < 0) {
+          years--;
+          months += 12;
+        }
+
+        const hours = now.getHours() - startDate.getHours();
+        const minutes = now.getMinutes() - startDate.getMinutes();
+        const seconds = now.getSeconds() - startDate.getSeconds();
+
+        document.querySelector(".years-passed").textContent = `${years} ${
+          years === 1 ? "ano" : "anos"
+        }, ${months} ${months === 1 ? "mês" : "meses"} e ${days} ${
+          days === 1 ? "dia" : "dias"
+        }`;
+        document.querySelector(".time-passed").textContent = `${hours} ${
+          hours === 1 ? "hora" : "horas"
+        }, ${minutes} ${minutes === 1 ? "minuto" : "minutos"} e ${seconds} ${
+          seconds === 1 ? "segundo" : "segundos"
+        }`;
+      }
+
+      setInterval(updateTime, 1000);
+      updateTime();
+
+      function showNextImage() {
+        const images = document.querySelectorAll(".carousel img");
+        let currentIndex = 0;
+        images.forEach((img, index) => {
+          if (img.classList.contains("active")) {
+            img.classList.remove("active");
+            currentIndex = index;
+          }
+        });
+        const nextIndex = (currentIndex + 1) % images.length;
+        images[nextIndex].classList.add("active");
+      }
+
+      setInterval(showNextImage, 3000);
+    </script>
+  </body>
+</html>
