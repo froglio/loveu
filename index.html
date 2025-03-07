@@ -197,6 +197,10 @@
         audio.currentTime = (progressBar.value / 100) * audio.duration;
       });
 
+      progressBar.addEventListener("touchend", () => {
+        audio.currentTime = (progressBar.value / 100) * audio.duration;
+      });
+
       function updateTime() {
         const startDate = new Date("2023-03-16T00:00:00");
         const now = new Date();
