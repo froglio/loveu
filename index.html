@@ -167,7 +167,9 @@
     </div>
     <script>
       const audio = document.getElementById("custom-audio");
-      audio.currentTime = 54;
+      audio.addEventListener("canplay", () => {
+        audio.currentTime = 54;
+      });
 
       const playButton = document.getElementById("play-button");
       const progressBar = document.getElementById("progress-bar");
